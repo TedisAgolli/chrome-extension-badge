@@ -32,10 +32,11 @@ export default async function handler(
 
   if (extensionId.endsWith(".svg")) {
     extensionId = extensionId.slice(0, -4);
+    const currentUrl = window.location.host.;
     const shieldsUrl = new URL("https://img.shields.io/endpoint");
     shieldsUrl.searchParams.append(
       "url",
-      `https://68bf-2601-48-4401-5060-d919-fd4-9c5d-7c90.ngrok.io/api/${extensionId}`
+      `https:${currentUrl}/api/${extensionId}`
     );
     res.redirect(shieldsUrl.toString());
   } else {
