@@ -32,7 +32,7 @@ export default async function handler(
 
   if (extensionId.endsWith(".svg")) {
     extensionId = extensionId.slice(0, -4);
-    const currentUrl = window.location.host;
+    const currentUrl = req.headers.host;
     const shieldsUrl = new URL("https://img.shields.io/endpoint");
     shieldsUrl.searchParams.append(
       "url",
