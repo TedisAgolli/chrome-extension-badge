@@ -34,7 +34,7 @@ export default async function handler(
     const shieldsUrl = new URL("https://img.shields.io/endpoint");
     shieldsUrl.searchParams.append(
       "url",
-      `https:${currentUrl}/api/reviews/${extensionId}`
+      `https:${currentUrl}/api/ratings/${extensionId}`
     );
     res.redirect(shieldsUrl.toString());
   } else {

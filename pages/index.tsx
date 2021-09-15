@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css"; // optional for styling
-import Clipboard from "react-clipboard.js";
+import Badge from "./Badge";
 
+const EXAMPLE_INSTALLS =
+  "https://chrome-extension-badge.vercel.app/api/installs/iigdkhmjendealedklplakommgjpnhpg.svg";
+const EXAMPLE_RATINGS =
+  "https://chrome-extension-badge.vercel.app/api/ratings/iigdkhmjendealedklplakommgjpnhpg.svg";
 const copyIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -24,20 +27,13 @@ const copyIcon = (
 const Home: NextPage = () => {
   const [extensionLink, setExtensionLink] = useState("");
   const [extensionId, setExtensionId] = useState("");
-  useEffect(() => {
-    tippy("button.copy-btn", {
-      content: "Copied!",
-      trigger: "click",
-    });
-    return () => {};
-  }, [extensionId]);
 
   function getInstallsLink(extensionId: string) {
-    return `/api/installs/${extensionId}.svg`;
+    return `api/installs/${extensionId}.svg`;
   }
 
-  function getReviewsLink(extensionId: string) {
-    return `/api/reviews/${extensionId}.svg`;
+  function getRatingsLink(extensionId: string) {
+    return `api/ratings/${extensionId}.svg`;
   }
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setExtensionLink(event.target.value);
@@ -50,71 +46,63 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className="max-w-xl mx-auto my-10">
-      <form onSubmit={submitForm}>
-        <div>
-          <label
-            htmlFor="extensionLink"
-            className="block text-sm font-medium text-gray-700"
+    <div className="max-w-xl mx-auto">
+      <h1 className="text-2xl font-extrabold text-center">
+        Chrome Extension Installs and Rating badge
+      </h1>
+      <div className="flex flex-col items-center mt-3">
+        <Badge badgeLink={EXAMPLE_INSTALLS} />
+        <Badge badgeLink={EXAMPLE_RATINGS} />
+      </div>
+
+      <div className="mt-10">
+        <form onSubmit={submitForm}>
+          <div>
+            <label
+              htmlFor="extensionLink"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Extension Link
+            </label>
+            <div className="mt-1">
+              <input
+                name="extensionLink"
+                onChange={handleChange}
+                value={extensionLink}
+                type="text"
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                placeholder="you@example.com"
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="mx-auto items-center mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Extension Link
-          </label>
-          <div className="mt-1">
-            <input
-              name="extensionLink"
-              onChange={handleChange}
-              value={extensionLink}
-              type="text"
-              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-              placeholder="you@example.com"
-            />
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="mx-auto items-center mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Generate
-        </button>
-        <div className="m-3 flex flex-col space-y-2 max-w-sm">
-          <div className="flex">
-            {extensionId && (
-              <>
-                <a href={getInstallsLink(extensionId)}>
-                  <img src={getInstallsLink(extensionId)}></img>
-                </a>
-                <Clipboard
-                  component="button"
-                  className="copy-btn"
-                  data-clipboard-text={`${
-                    window.location.host
-                  }${getInstallsLink(extensionId)}`}
-                >
-                  {copyIcon}
-                </Clipboard>
-              </>
-            )}
-          </div>
-          <div className="flex">
-            {extensionId && (
-              <>
-                <a href={getReviewsLink(extensionId)}>
-                  <img src={getReviewsLink(extensionId)}></img>
-                </a>
-                <Clipboard
-                  component="button"
-                  className="copy-btn"
-                  data-clipboard-text={`${window.location.host}${getReviewsLink(
+            Generate
+          </button>
+          <div className="m-3 flex flex-col space-y-2 max-w-sm">
+            <div className="flex">
+              {extensionId && (
+                <Badge
+                  badgeLink={`${window.location.href}${getInstallsLink(
                     extensionId
                   )}`}
-                >
-                  {copyIcon}
-                </Clipboard>
-              </>
-            )}
+                />
+              )}
+            </div>
+            <div className="flex">
+              {extensionId && (
+                <Badge
+                  badgeLink={`${window.location.href}${getRatingsLink(
+                    extensionId
+                  )}`}
+                />
+              )}
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
