@@ -11,10 +11,6 @@ const scrape = async (extensionId: string) => {
     const ratingRegex =
       /(?:<div class="rsw-stars" title="Average rating: )(.*)(?: stars)/g;
     const body = await response.text();
-    console.log(
-      "🚀 ~ file: [extensionId].ts ~ line 14 ~ scrape ~ ratingValue",
-      body
-    );
     const ratingValue = [...body.matchAll(ratingRegex)][0][1];
 
     const extensionName = [...body.matchAll(extensionNameRegex)][0][1];
