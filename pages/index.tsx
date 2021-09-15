@@ -30,7 +30,7 @@ const Home: NextPage = () => {
       trigger: "click",
     });
     return () => {};
-  }, []);
+  }, [extensionId]);
 
   function getInstallsLink(extensionId: string) {
     return `/api/installs/${extensionId}.svg`;

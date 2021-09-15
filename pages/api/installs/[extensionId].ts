@@ -10,7 +10,6 @@ const scrape = async (extensionId: string) => {
     const installCountRegex = /(?:")(\d*) (?:users")/g;
     const extensionNameRegex = /(?:<h1 class="e-f-w">)(.*)(?:<\/h1>)/g;
     const body = await response.text();
-    console.log(body);
     const extensionName = [...body.matchAll(extensionNameRegex)][0][1];
     const installCount = [...body.matchAll(installCountRegex)][0][1];
     return { extensionName, installCount };
