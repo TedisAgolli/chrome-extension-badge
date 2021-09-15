@@ -70,14 +70,14 @@ const Home: NextPage = () => {
                 onChange={handleChange}
                 value={extensionLink}
                 type="text"
-                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                placeholder="you@example.com"
+                className="shadow-sm focus:ring-red-500 focus:border-red-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                placeholder="https://chrome.google.com/webstore/detail/readwise-new-tab/iigdkhmjendealedklplakommgjpnhpg"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="mx-auto items-center mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="mx-auto items-center mt-2 px-4 py-2 border border-transparent text-sm font-bold rounded-full shadow-sm text-white bg-gradient-to-r from-yellow-500 via-red-500 to-pink-500 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
             Generate
           </button>
