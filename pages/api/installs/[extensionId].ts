@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { makeBadge } from "badge-maker";
 
 const scrape = async (extensionId: string) => {
   const response = await fetch(
@@ -28,20 +29,21 @@ export default async function handler(
 
   if (extensionId.endsWith(".svg")) {
     extensionId = extensionId.slice(0, -4);
-    const currentUrl = req.headers.host;
-    const shieldsUrl = new URL("https://img.shields.io/endpoint");
-    shieldsUrl.searchParams.append(
-      "url",
-      `https:${currentUrl}/api/installs/${extensionId}`
-    );
-    res.redirect(shieldsUrl.toString());
+    const { extensionName, installCount } = await scrape(extensionId as string);
+    const format = {
+      label: extensionName || "",
+      message: `${installCount} users` || "",
+      color: "orange",
+    };
+    const svg = makeBadge(format);
+
+    res.setHeader("Content-Type", "image/svg+xml");
+    res.send(svg);
   } else {
     const { extensionName, installCount } = await scrape(extensionId as string);
     res.status(200).json({
-      schemaVersion: 1,
-      label: extensionName,
+      name: extensionName,
       message: `${installCount} users`,
-      color: "orange",
     });
   }
 }
