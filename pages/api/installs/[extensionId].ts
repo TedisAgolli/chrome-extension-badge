@@ -8,7 +8,7 @@ const scrape = async (extensionId: string) => {
     `https://chrome.google.com/webstore/detail/${extensionId}`
   );
   if (response.status === 200) {
-    const installCountRegex = /(?:")(\d*) (?:users")/g;
+    const installCountRegex = /(?:title=")(\d.*)(?: users")/g;
     const extensionNameRegex = /(?:<h1 class="e-f-w">)(.*)(?:<\/h1>)/g;
     const body = await response.text();
     const extensionName = [...body.matchAll(extensionNameRegex)][0][1];

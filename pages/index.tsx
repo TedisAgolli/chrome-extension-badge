@@ -4,9 +4,9 @@ import "tippy.js/dist/tippy.css"; // optional for styling
 import Badge from "./Badge";
 
 const EXAMPLE_INSTALLS =
-  "https://chrome-extension-badge.vercel.app/api/installs/iigdkhmjendealedklplakommgjpnhpg.svg";
+  "https://extensionbadge.com/api/installs/iigdkhmjendealedklplakommgjpnhpg.svg";
 const EXAMPLE_RATINGS =
-  "https://chrome-extension-badge.vercel.app/api/ratings/iigdkhmjendealedklplakommgjpnhpg.svg";
+  "https://extensionbadge.com/api/ratings/iigdkhmjendealedklplakommgjpnhpg.svg";
 const copyIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
