@@ -32,6 +32,7 @@ export default async function handler(
   if (extensionId.endsWith(".svg")) {
     extensionId = extensionId.slice(0, -4);
     const { extensionName, ratingValue } = await scrape(extensionId as string);
+    console.log("Extension Name: ", extensionName);
     const format = {
       label: extensionName || "",
       message: `${ratingValue} stars` || "",
